@@ -41,7 +41,7 @@ We studied how to explain AI's prediction results so that people can trust AI mo
 7. Visualize important pixels<br>
    <img width="200" alt="image" src="https://user-images.githubusercontent.com/22260098/119331814-c3d31500-bcc2-11eb-8212-70a5aabdd370.png">
 
-## Used resources
+## References
 
 - [Inception V3](https://arxiv.org/abs/1512.00567v3)
 - Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. "Why should i trust you?: Explaining the predictions of any classifier." Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining. ACM, 2016.  
