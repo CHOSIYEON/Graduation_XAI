@@ -22,7 +22,7 @@ According to an AI reliability survey of 2,200 information and communication tec
 This is because artificial intelligence does not provide a basis for judgment.<br>
 We studied how to explain AI's prediction results so that people can trust AI models more.
 
-## Aproach
+## Approach
 
 - Creates a disturbed image from the original Input image.
 - In this case, we used Segmentation algorithm to extract superpixels and randomly zero multiple superpixels, i.e., to create a modified sample by blackening a part of the image.
