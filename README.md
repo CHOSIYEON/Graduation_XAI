@@ -10,6 +10,10 @@
 
 ## Summary
 
+|Original|Segmentation|Pertubed|Explained
+|---|---|---|---|
+|<img width="110" alt="image" src="https://user-images.githubusercontent.com/22260098/119331387-41e2ec00-bcc2-11eb-929f-769d6090c572.png">|<img width="110" alt="image" src="https://user-images.githubusercontent.com/22260098/119331407-46a7a000-bcc2-11eb-9615-2fb4ad6f91c1.png">|<img width="110" alt="image" src="https://user-images.githubusercontent.com/22260098/119331427-4b6c5400-bcc2-11eb-940d-c20587fbdb55.png">|<img width="110" alt="image" src="https://user-images.githubusercontent.com/22260098/119331814-c3d31500-bcc2-11eb-8212-70a5aabdd370.png">|
+
 The AI market is expected to grow steadily from 2016 to 2025, with a market value of more than $30 billion by 2025.<br>
 In addition, artificial intelligence is becoming more diverse, and the artificial intelligence market is one of the markets that is expected to grow steadily in various fields and is making rapid progress.
 
@@ -19,6 +23,12 @@ This is because artificial intelligence does not provide a basis for judgment.<b
 We studied how to explain AI's prediction results so that people can trust AI models more.
 
 ## Aproach
+
+1. Segments the original images via super-pixels
+2. Make enough amount of Pertubed images
+3. Input Pertubed images to model as input
+4. Compare results and find out the most effectable pixel to result
+5. Visualize important pixels
 
 - Creates a disturbed image from the original Input image.
 - In this case, we used Segmentation algorithm to extract superpixels and randomly zero multiple superpixels, i.e., to create a modified sample by blackening a part of the image.
@@ -40,4 +50,3 @@ We studied how to explain AI's prediction results so that people can trust AI mo
 
 - Python 3
 - Tensorflow 2.3.1
-
