@@ -25,3 +25,19 @@ We studied how to explain AI's prediction results so that people can trust AI mo
 - These samples are put back into the Inception V3 model to measure the difference from the original result and weight the superpixel.
 - Finally, the super-pixels with the highest weights are presented in green, thinking that the Inception V3 model played an important role in determining the image.
 - The above approach increases confidence in the model because users can receive both results and their rationale.
+
+## Used resources
+
+- [Inception V3](https://arxiv.org/abs/1512.00567v3)
+- Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. "Why should i trust you?: Explaining the predictions of any classifier." Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining. ACM, 2016.  
+- J. Quiñonero Candela, M. Sugiyama, A. Schwaighofer, and N. D. Lawrence. 2009. Dataset Shift in Machine Learning. MIT.
+- Cristian Danescu-Niculescu-Mizil, Moritz Sudhof, Dan Jurafsky, Jure Leskovec, and Christopher Potts. 2013. A computational approach to politeness with application to social factors. In Proceedings of ACL. 
+Finale Doshi-Velez, Been Kim. Towards a rigorous science of interpretable machine learning, 2017.
+-Leilani H. Gilpin, David Bau, Ben Z. Yuan, Ayesha Bajwa, Michael Specter, Lalana Kagal. Explaining Explanations : An Overview of Interpretability of Machine Learning,  2018 IEEE 5th International Conference on Data Science and Advanced Analytics (DSAA), 2018
+-enbo Guo, Dongliang Mu, Jun Xu, Purui Su, Gang Wang, Xinyu Xing. LEMNA: Explaining Deep Learning based Security Applications. n.p.: The Pennsylvania State University, n.d..
+
+## Requirements
+
+- Python 3
+- Tensorflow 2.3.1
+
