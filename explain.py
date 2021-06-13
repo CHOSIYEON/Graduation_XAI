@@ -25,9 +25,8 @@ def transform_img_fn(path_list):
 images = transform_img_fn([os.path.join('image_sample/','sample_image.png')])
 
 plt.imshow(images[0] / 2 + 0.5)
-#plt.show()
 preds = inet_model.predict(images)
-#print(preds)
+
 
 for x in decode_predictions(preds)[0]:
     print(x)
@@ -42,17 +41,17 @@ explanation = explainer.explain_instance(images[0].astype('double'), inet_model.
 
 
 from skimage.segmentation import mark_boundaries
-"""
+
 temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=True)
 plt.imshow(mark_boundaries(temp / 2 + 0.5, mask))
 plt.show()
-"""
+
 temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
 plt.imshow(mark_boundaries(temp / 2 + 0.5, mask))
 plt.show()
 plt.imsave('result/result.png', mark_boundaries(temp / 2 + 0.5, mask))
 
-"""
+
 temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=False, num_features=10, hide_rest=False)
 plt.imshow(mark_boundaries(temp / 2 + 0.5, mask))
 plt.show()
@@ -60,4 +59,4 @@ plt.show()
 temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=False, num_features=1000, hide_rest=False, min_weight=0.1)
 plt.imshow(mark_boundaries(temp / 2 + 0.5, mask))
 plt.show()
-"""
+

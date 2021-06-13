@@ -1,5 +1,4 @@
 import re
-
 from flask import Flask, render_template, json, request
 import os
 import keras
@@ -29,25 +28,19 @@ def transform_img_fn(path_list):
  
 @app.route("/parse", methods=['POST'])
 def home():
+    
     url = request.data.decode('utf-8')
-    # from PIL import Image
-
-    # img = Image.open(url)
-    # img.show()
-    # img.save("imagefile.jpg")
-
+    
     images = transform_img_fn([os.path.join('image_sample/', url)])
 
     inet_model = inc_net.InceptionV3()
     plt.imshow(images[0] / 2 + 0.5)
-    #plt.show()
+    
     preds = inet_model.predict(images)
-    #print(preds)
 
-    explain = []
+    explain = ""
     for x in decode_predictions(preds)[0]:
-        print(x)
-        explain.append(x)
+        explain = explain + x[1] + ' : ' + str(x[2]) + '    '
 
 
     import base
@@ -55,7 +48,7 @@ def home():
 
     explainer = image.ImageExplainer()
     print(images[0].astype('double').shape)
-    explanation = explainer.explain_instance(images[0].astype('double'), inet_model.predict, top_labels=50, hide_color=0, num_samples=5)
+    explanation = explainer.explain_instance(images[0].astype('double'), inet_model.predict, top_labels=50, hide_color=0, num_samples=100)
 
 
     from skimage.segmentation import mark_boundaries
@@ -70,10 +63,8 @@ def home():
 
 
     plt.imsave('static/result/result.png', mark_boundaries(temp / 2 + 0.5, mask))
-    #plt.show()
 
-
-    return json.dumps(str(explain))
+    return json.dumps(explain)
 
 
 @app.route("/main")
