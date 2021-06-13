@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="    width: 100%;text-align: center;font-size: 25px;font-style: unset;font-weight: 700;">
+        <p>Drag image!</p>
+    </div>
+    <div style="display: flex;">
+        <div id = "target" class="content" style="margin-left: 20px;height: 500px;background: antiquewhite; width: 43%;" data-url="">
+            <i class="far fa-plus-square fa-5x" id="plus" style="text-align: center;margin-left: 44%;margin-top: 25%;"></i>
+        </div>
+        <div style="width: 10%;    height: 100px;border: 1px solid grey;    margin-top: 10%;    margin-left: 2%;">
+            <i class="fas fa-exchange-alt  fa-5x" style="text-align: center;    margin-top: 7%;padding-left: 39px;" onclick="parse()"> </i>
+        </div>
+        <div class="result" style="margin-left: 30px;height: 500px;background: antiquewhite;width: 43%;">
+                <img id ="result_img" src="" style="width: 100%;height: 100%">
+        </div>
+    </div>
+    <div id="divID" style="text-align: center;padding-top: 89px;"></div>
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<style>
+    .content
+        outline: 2px dashed #92b0b3 ;
+        outline-offset:-10px;
+        text-align: center;
+        transition: all .15s ease-in-out;
+        width: 300px;
+        height: 300px;
+        background-color: gray;
+    }
+
+    .result{
+        outline: 2px dashed #92b0b3 ;
+        outline-offset:-10px;
+        text-align: center;
+        transition: all .15s ease-in-out;
+        width: 300px;
+        height: 300px;
+        background-color: gray;
+    }
+</style>
+
+<script>
+    $('.content')
+  .on("dragover", dragOver)
+  .on("dragleave", dragOver)
+  .on("drop", uploadFiles);
+
+    function dragOver(e){
+      e.stopPropagation();
+      e.preventDefault();
+      if (e.type == "dragover") {
+        $(e.target).css({
+          "background-color": "black",
+          "outline-offset": "-20px"
+        });
+      } else {
+          $(e.target).css({
+          "background-color": "gray",
+          "outline-offset": "-10px"
+        });
+        }
+    }
+
+    function uploadFiles(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        dragOver(e);
+
+        e.dataTransfer = e.originalEvent.dataTransfer;
+        var files = e.target.files || e.dataTransfer.files;
+        if (files.length > 1) {
+            alert('하나만 올려라.');
+            return;
+        }
+        if (files[0].type.match(/image.*/)) {
+            console.log(files[0].name)
+            $(e.target).css({
+                "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+                "outline": "none",
+                "background-size": "100% 100%"
+            });
+            $('#plus').remove();
+            parse(files[0].name);
+        }else{
+          alert('이미지가 아닙니다.');
+          return;
+        }
+    }
+
+
+    function parse(name){
+
+        var data = name;
+        console.log(data)
+        $.ajax({
+            url: '/parse',
+            type: 'POST',
+            data: data,
+            contentType: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+                success: function(data) {
+                    // alert('gd job');
+                    $("#result_img").attr("src", "http://localhost:5000/static/result/result.png");
+
+                    var div = document.getElementById('divID');
+                    div.innerHTML = data;
+                }
+            }
+        );
+        {#return false;#}
+    }
+
+
+</script>

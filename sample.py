@@ -1,6 +1,6 @@
- 
+import re
 
-from flask import Flask, render_template 
+from flask import Flask, render_template, json, request
 import os
 import keras
 from keras.applications import inception_v3 as inc_net
@@ -27,20 +27,29 @@ def transform_img_fn(path_list):
         out.append(x)
     return np.vstack(out)
  
-@app.route("/")
+@app.route("/parse", methods=['POST'])
 def home():
-    inet_model = inc_net.InceptionV3()
-    images = transform_img_fn([os.path.join('image_sample/','1.jpg')])
+    url = request.data.decode('utf-8')
+    # from PIL import Image
 
+    # img = Image.open(url)
+    # img.show()
+    # img.save("imagefile.jpg")
+
+    images = transform_img_fn([os.path.join('image_sample/', url)])
+
+    inet_model = inc_net.InceptionV3()
     plt.imshow(images[0] / 2 + 0.5)
     #plt.show()
     preds = inet_model.predict(images)
     #print(preds)
 
+    explain = []
     for x in decode_predictions(preds)[0]:
         print(x)
+        explain.append(x)
 
-    
+
     import base
     import image
 
@@ -62,13 +71,16 @@ def home():
 
     plt.imsave('static/result/result.png', mark_boundaries(temp / 2 + 0.5, mask))
     #plt.show()
-    
-
-    return render_template('index.html', image_file='result/result.png')
 
 
+    return json.dumps(str(explain))
 
- 
+
+@app.route("/main")
+def main():
+    return render_template('main.html')
+
+
 if __name__ == "__main__":
     app.run()
     
